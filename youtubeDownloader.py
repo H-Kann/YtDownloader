@@ -6,7 +6,9 @@ def main(URL, res):
     
     def checkRes(URL, res):
 
-        ydl_opts1  = {}
+        ydl_opts1  = {
+            "quiet": "true"
+        }
         with yt_dlp.YoutubeDL(ydl_opts1) as y:
            video_info = y.extract_info(URL, download = False)
 
@@ -54,7 +56,7 @@ def main(URL, res):
 
         ydl_opts = {
             'format': format_selector,
-            'outtmpl': "E:\\Other\\%(title)s",
+            'outtmpl': "\\Downloads\\%(title)s",
         }
 
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
