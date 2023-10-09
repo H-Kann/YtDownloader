@@ -1,0 +1,18 @@
+body {
+    height: 100%;
+    width: 100%;
+    background-color: #282828;
+  }
+  
+  .container {
+    height: 100vh;
+  }
+  
+  div.input-group>select.custom-select {
+    flex: 0.1 1 100px;
+  }
+
+  .img{
+    max-width: 15%;
+    max-height: 15%
+  }
