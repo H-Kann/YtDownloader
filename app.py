@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request
 import re
-from youtubeDownloader import main
+from youtubeDownloader import downloadWithRes, downloadBestRes
 from onlyAudio import Audio
 
 app= Flask(__name__)
@@ -55,13 +55,23 @@ def downloadVideo():
 
                 URL = youtubeUrl
                 res = request.form.get('format')
-                
-                if(main(URL, res) == True):
-                    message = 'Video Downloaded Successfully!!!'
-                    errorType = 1
+
+                if (res != 'Best'):
+
+                    if(downloadWithRes(URL, res) == True):
+                        message = 'Video Downloaded Successfully!!!'
+                        errorType = 1
+                    else:
+                        message = 'Video Resolution Not Available'
+                        errorType = 0
                 else:
-                    message = 'Video Resolution Not Available'
-                    errorType = 0
+
+                    if(downloadBestRes(URL) == True):
+                        message = 'Video Downloaded Successfully!!!'
+                        errorType = 1
+                    else:
+                        message = 'Video Resolution Not Available'
+                        errorType = 0
             else:
                 message = 'Enter a valid URL'
                 errorType = 0
