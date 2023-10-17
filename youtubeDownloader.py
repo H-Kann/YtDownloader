@@ -1,7 +1,7 @@
 import yt_dlp
 
 
-def downloadBestRes(URL):
+def downloadBestRes(URL, sponsor):
 
     def format_selector(ctx):
         
@@ -31,10 +31,29 @@ def downloadBestRes(URL):
             }
 
 
-    ydl_opts = {
-        'format': format_selector,
-        'outtmpl': "\\Downloads\\%(title)s",
-    }
+    if(sponsor == 'True'):
+         
+        ydl_opts = {
+            'format': format_selector,
+            'outtmpl': "\\Downloads\\%(title)s",
+            'postprocessors': 
+                [
+                    {  
+                        'key': 'SponsorBlock',
+                        'categories': ['sponsor', 'intro', 'outro', 'selfpromo', 'preview', 'filler', 'interaction']
+                    },
+                    {
+                        'key': 'ModifyChapters', 
+                        'remove_sponsor_segments': ['sponsor', 'intro', 'outro', 'selfpromo', 'preview', 'filler', 'interaction']
+                    }
+                ]
+        }
+    else:
+        
+        ydl_opts = {
+            'format': format_selector,
+            'outtmpl': "\\Downloads\\%(title)s",
+        }
 
     with yt_dlp.YoutubeDL(ydl_opts) as ydl:
         ydl.download(URL)
@@ -42,7 +61,7 @@ def downloadBestRes(URL):
     return True
 
 
-def downloadWithRes(URL, res):
+def downloadWithRes(URL, res, sponsor):
     
     def checkRes(URL, res):
 
@@ -91,10 +110,29 @@ def downloadWithRes(URL, res):
 
     if (checkRes(URL, res)):
 
-        ydl_opts = {
-            'format': format_selector,
-            'outtmpl': "\\Downloads\\%(title)s",
-        }
+        if(sponsor == 'True'):
+             
+            ydl_opts = {
+                'format': format_selector,
+                'outtmpl': "\\Downloads\\%(title)s",
+                'postprocessors': 
+                [
+                    {  
+                        'key': 'SponsorBlock',
+                        'categories': ['sponsor', 'intro', 'outro', 'selfpromo', 'preview', 'filler', 'interaction']
+                    },
+                    {
+                        'key': 'ModifyChapters', 
+                        'remove_sponsor_segments': ['sponsor', 'intro', 'outro', 'selfpromo', 'preview', 'filler', 'interaction']
+                    }
+                ]
+            }
+        
+        else:
+            ydl_opts = {
+                'format': format_selector,
+                'outtmpl': "\\Downloads\\%(title)s",
+            }
 
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
             ydl.download(URL)

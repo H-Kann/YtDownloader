@@ -55,10 +55,11 @@ def downloadVideo():
 
                 URL = youtubeUrl
                 res = request.form.get('format')
+                sponsor = request.form.get('sponsor')
 
                 if (res != 'Best'):
 
-                    if(downloadWithRes(URL, res) == True):
+                    if(downloadWithRes(URL, res, sponsor) == True):
                         message = 'Video Downloaded Successfully!!!'
                         errorType = 1
                     else:
@@ -66,7 +67,7 @@ def downloadVideo():
                         errorType = 0
                 else:
 
-                    if(downloadBestRes(URL) == True):
+                    if(downloadBestRes(URL, sponsor) == True):
                         message = 'Video Downloaded Successfully!!!'
                         errorType = 1
                     else:
