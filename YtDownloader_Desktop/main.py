@@ -34,7 +34,7 @@ def download():
                 
         else:
             # Best Quality Download
-            youtubeDownloader.downloadBestRes(URL)
+            youtubeDownloader.downloadBestRes(URL, sponsor)
             downloadLabel.configure(text = "Download Complete!!!")
             
             
