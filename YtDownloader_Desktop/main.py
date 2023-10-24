@@ -6,14 +6,14 @@ ctk.set_appearance_mode("dark")
 ctk.set_default_color_theme("green")
 
 root = ctk.CTk()
-root.geometry("800x350")
+root.geometry("900x350")
 
 
 
 def download():
     
 
-    URL = entry1.get()
+    URL = [entry1.get()]
     res = qualitySelect.get()
     sponsor = checkboxSponsor.get()
 
@@ -34,7 +34,7 @@ def download():
                 
         else:
             # Best Quality Download
-            youtubeDownloader.downloadBestRes(URL)
+            youtubeDownloader.downloadBestRes(URL, sponsor)
             downloadLabel.configure(text = "Download Complete!!!")
             
             
@@ -55,13 +55,13 @@ button = ctk.CTkButton(master = frame, text = "Download", command=download, fg_c
 button.pack(pady = 12, padx = 10)
 
 checkboxAudio = ctk.CTkCheckBox(master = frame, text = "Audio only", fg_color="#ee2a42", hover_color = "#b90039")
-checkboxAudio.pack(pady = 12, padx = (220,0) ,side = 'left')
+checkboxAudio.pack(pady = 10, padx = (220,0) ,side = 'left')
 
 checkboxSponsor = ctk.CTkCheckBox(master = frame, text = "Use SponsorBlock", fg_color="#ee2a42", hover_color = "#b90039")
-checkboxSponsor.pack(pady = 12, padx = (0,150), side = 'right')
+checkboxSponsor.pack(pady = 10, padx = (0,150), side = 'right')
 
-downloadLabel = ctk.CTkLabel(master = frame, text = "")
-downloadLabel.pack(pady = 12)
+downloadLabel = ctk.CTkLabel(master = frame, text = "", font = ('monospace', 14))
+downloadLabel.pack(side = 'bottom')
 
 
 
