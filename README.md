@@ -1,3 +1,9 @@
+> [!NOTE]
+> #### There are two versions of this app, if you want the web app version, download the repo and if you want you can delete the 'YtDownloader_Desktop' folder.
+> #### Or if you want only the desktop version, downloading only that folder should suffice.
+>
+> ### Don't forget to check the section for each app
+
 # YtDownloader required package
 
 ## Ffmpeg
@@ -22,10 +28,23 @@
 6. Click Ok, Ok and Ok
 
 
-# YtDownloader dependencies
+## YtDownloader dependencies
 
 ## Flask
+```bash
 pip install flask
+```
+## yt_dlp
+```bash
+pip install yt_dlp
+```
+# YtDownloader dependencies for the desktop version
 
 ## yt_dlp
+```bash
 pip install yt_dlp
+```
+## CustomTkinter
+```bash
+pip install customtkinter
+```
