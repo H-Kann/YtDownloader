@@ -1,7 +1,7 @@
 import yt_dlp
 
 
-def downloadBestRes(URL, sponsor):
+def downloadBestRes(URL, sponsor, path):
     
     def format_selector(ctx):
         
@@ -34,7 +34,7 @@ def downloadBestRes(URL, sponsor):
          
         ydl_opts = {
             'format': format_selector,
-            'outtmpl': "\\Downloads\\%(title)s",
+            'outtmpl': f"{path}\\%(title)s",
             'postprocessors': 
                 [
                     {  
@@ -51,7 +51,7 @@ def downloadBestRes(URL, sponsor):
         
         ydl_opts = {
             'format': format_selector,
-            'outtmpl': "\\Downloads\\%(title)s",
+            'outtmpl': f"{path}\\%(title)s",
         }
 
     with yt_dlp.YoutubeDL(ydl_opts) as ydl:
@@ -59,14 +59,14 @@ def downloadBestRes(URL, sponsor):
         return True
 
 
-def downloadWithRes(URL, res, sponsor):
+def downloadWithRes(URL, res, sponsor, path):
     # Cleaning
     if res == '4K':
-        newres = '2160p'
+        newRes = '2160p'
     #else:
         #newres = res.replace("p", "")
 
-    def checkRes(URL, newres):
+    def checkRes(URL, newRes):
 
         ydl_opts1  = {
             "quiet": "true"
@@ -79,7 +79,7 @@ def downloadWithRes(URL, res, sponsor):
 
         # Checking if the format is supported in the video
         for f in formats:
-            if newres in f['format']:
+            if newRes in f['format']:
                 found = True
                 return found
             
@@ -117,7 +117,7 @@ def downloadWithRes(URL, res, sponsor):
              
             ydl_opts = {
                 'format': format_selector,
-                'outtmpl': "\\Downloads\\%(title)s",
+                'outtmpl': f"{path}\\%(title)s",
                 'postprocessors': 
                 [
                     {  
@@ -134,7 +134,7 @@ def downloadWithRes(URL, res, sponsor):
         else:
              ydl_opts = {
                 'format': format_selector,
-                'outtmpl': "\\Downloads\\%(title)s",
+                'outtmpl': f"{path}\\%(title)s",
             }
 
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
