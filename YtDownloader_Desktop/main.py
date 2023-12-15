@@ -10,7 +10,6 @@ from configparser import ConfigParser
 ctk.set_appearance_mode("dark")
 
 root = ctk.CTk()
-root.geometry("950x500")
 
 
 def progressNotification(title:str, message:str):
@@ -42,7 +41,7 @@ def configIni()->str:
     return path
 
 
-def setDir(path):
+def setDir(path:str):
 
     frame2 = ctk.CTkFrame(master = frame, fg_color="transparent")
     frame2.pack(pady =20, padx=60, fill="both", expand = True)
@@ -161,7 +160,7 @@ if exists(".\\config.ini"):
     config = ConfigParser()
     config.read("config.ini")
     path = config["DEFAULT"]["PATH"]
-
+    root.geometry("847x485")
     setDir(path)
 
 root.mainloop()
