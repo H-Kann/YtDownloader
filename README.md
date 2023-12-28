@@ -2,12 +2,12 @@
 > #### There are two versions of this app, if you want the web app version, download the repo and if you want you can delete the 'YtDownloader_Desktop' folder.
 > #### Or if you want only the desktop version, downloading only that folder should suffice.
 >
-> ### Don't forget to check the section for each app
+> ### Don't forget to check the section for each version
 
 # YtDownloader required package
 
 ## Ffmpeg
-[Ffmpeg](https://www.gyan.dev/ffmpeg/builds/ffmpeg-git-full.7z)
+[Download ffmpeg](https://www.gyan.dev/ffmpeg/builds/ffmpeg-git-full.7z)
 
 ### Instructions to install FFmpeg
 1. Extract the zip file 
@@ -28,7 +28,7 @@
 6. Click Ok, Ok and Ok
 
 
-## YtDownloader dependencies
+## YtDownloader web app dependencies
 
 ## Flask
 ```bash
@@ -38,7 +38,7 @@ pip install flask
 ```bash
 pip install yt_dlp
 ```
-# YtDownloader dependencies for the desktop version
+## YtDownloader desktop dependencies
 
 ## yt_dlp
 ```bash
