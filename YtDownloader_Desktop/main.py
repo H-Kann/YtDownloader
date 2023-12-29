@@ -9,6 +9,8 @@ from configparser import ConfigParser
 
 ctk.set_appearance_mode("dark")
 root = ctk.CTk()
+root.title("YtDownloader")
+root.iconbitmap('.\YtDownloader.ico')
 
 def progressNotification(title:str, message:str):
     progressbar.stop()
@@ -17,6 +19,7 @@ def progressNotification(title:str, message:str):
         title = title,
         message = message,
         app_name='YTDownloader',
+        app_icon = '.\YtDownloader.ico',
     )
 
 
@@ -52,7 +55,7 @@ def setDir(path:str):
     downDir= ctk.CTkEntry(master = frame2, textvariable=dir, width=300, state="readonly")
     downDir.pack(side="left")
 
-    buttonChange = ctk.CTkButton(master = frame2, text = "Change Dir", command=lambda: changeDir(dir), fg_color="#ee2a42", hover_color = "#b90039", text_color=("black", "white"))
+    buttonChange = ctk.CTkButton(master = frame2, text = "Change Directory", command=lambda: changeDir(dir), fg_color="#ee2a42", hover_color = "#b90039", text_color=("black", "white"))
     buttonChange.pack(side="left", padx=(5,0))
     
 
@@ -73,10 +76,6 @@ def changeDir(dir:ctk.StringVar):
     dir.set(value= configIni())
 
 def download(path:str):
-
-    
-    progressbar.configure(mode='indeterminate')
-    progressbar.start()
     
     # Get url, resolution and user option for SponsorBlock
     url = entry1.get()
@@ -87,10 +86,7 @@ def download(path:str):
     if checkboxAudio.get() == 1:
 
         # Only Audio Download
-        onlyAudio.Audio(url, path)
-
-        progressbar.configure(mode='determinate')
-        progressbar.set(1)
+        onlyAudio.Audio(url, path, downLabel, progressbar)
 
         # Send Notification
         progressNotification('Download Progress', 'Download Complete!!!')
@@ -100,26 +96,19 @@ def download(path:str):
         # Selected Quality Download
         if res != "Best Quality":
 
-            if(youtubeDownloader.downloadWithRes(url, res, sponsor, path) == False):
-                
-                progressbar.stop()
+            if(youtubeDownloader.downloadWithRes(url, res, sponsor, path, downLabel, progressbar) == False):
 
                 # Send Notification
                 progressNotification('Download Failed', 'Resolution not available')
 
             else:
-                progressbar.configure(mode='determinate')
-                progressbar.set(1)
 
                 # Send Notification
                 progressNotification('Download Progress', 'Download Complete!!!')
                 
         else:
             # Best Quality Download
-            youtubeDownloader.downloadBestRes(url, sponsor, path)
-
-            progressbar.configure(mode='determinate')
-            progressbar.set(1)
+            youtubeDownloader.downloadBestRes(url, sponsor, path, downLabel, progressbar)
 
             # Send Notification 
             progressNotification('Download Progress', 'Download Complete!!!')
@@ -179,8 +168,12 @@ checkboxAudio.pack(pady=20)
 checkboxSponsor = ctk.CTkCheckBox(master = frame, text = "Use SponsorBlock", fg_color="#ee2a42", hover_color = "#b90039")
 checkboxSponsor.pack(padx=(35,0))
 
-progressbar = ctk.CTkProgressBar(master=frame, orientation="horizontal", progress_color="#ee2a42", mode="indeterminate")
+progressbar = ctk.CTkProgressBar(master=frame, orientation="horizontal", progress_color="#ee2a42")
+progressbar.set(0)
 progressbar.pack(pady=20)
+
+downLabel = ctk.CTkLabel(master = frame, text='')
+downLabel.pack()
 
 if exists(".\\config.ini"):
     config = ConfigParser()
@@ -203,5 +196,7 @@ else:
     switchVar = ctk.StringVar(value="on")
     UiSwitch = ctk.CTkSwitch(master = frame, progress_color="#ee2a42", onvalue="on", offvalue="off", text="Dark Mode", variable=switchVar, command=changeUi)
     UiSwitch.pack(pady=20)
+
+
 
 root.mainloop()

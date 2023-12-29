@@ -1,7 +1,7 @@
 import yt_dlp
 
 
-def downloadBestRes(URL, sponsor, path):
+def downloadBestRes(URL, sponsor, path, downLabel, progressbar):
     
     def format_selector(ctx):
         
@@ -30,8 +30,21 @@ def downloadBestRes(URL, sponsor, path):
                 'protocol': f'{best_video["protocol"]}+{best_audio["protocol"]}'
             }
 
+    def progressHook(d):
+        if d['status'] == 'downloading':
+            downloaded_percent = int((d["downloaded_bytes"]*100)/d["total_bytes"])
+            downLabel.configure(text=f'Progress: {downloaded_percent}%')
+            progressbar.set(downloaded_percent/100)
+    
+    def processingHook(d):
+        if d['status'] == 'started':
+            downLabel.configure(text='Processing Video...')
+        elif d['status'] == 'finished':
+            downLabel.configure(text='Processing Complete')
+
+            
     if (sponsor):
-         
+        
         ydl_opts = {
             'format': format_selector,
             'outtmpl': f"{path}\\%(title)s",
@@ -45,13 +58,17 @@ def downloadBestRes(URL, sponsor, path):
                         'key': 'ModifyChapters', 
                         'remove_sponsor_segments': ['sponsor', 'intro', 'outro', 'selfpromo', 'preview', 'filler', 'interaction']
                     }
-                ]
+                ],
+                'progress_hooks':[progressHook],
+                'postprocessor_hooks': [processingHook],
         }
     else:
         
         ydl_opts = {
             'format': format_selector,
             'outtmpl': f"{path}\\%(title)s",
+            'progress_hooks':[progressHook],
+            'postprocessor_hooks': [processingHook],
         }
 
     with yt_dlp.YoutubeDL(ydl_opts) as ydl:
@@ -59,7 +76,7 @@ def downloadBestRes(URL, sponsor, path):
         return True
 
 
-def downloadWithRes(URL, res, sponsor, path):
+def downloadWithRes(URL, res, sponsor, path, downLabel, progressbar):
     # Cleaning
     if res == '4K':
         newRes = '2160p'
@@ -110,11 +127,21 @@ def downloadWithRes(URL, res, sponsor, path):
                 'protocol': f'{best_video["protocol"]}+{best_audio["protocol"]}'
             }
 
+    def progressHook(d):
+        if d['status'] == 'downloading':
+            downloaded_percent = int((d["downloaded_bytes"]*100)/d["total_bytes"])
+            downLabel.configure(text=f'Progress: {downloaded_percent}%')
+            progressbar.set(downloaded_percent/100)
+
+    def processingHook(d):
+        if d['status'] == 'started':
+            downLabel.configure(text='Processing Video...')
+        elif d['status'] == 'finished':
+            downLabel.configure(text='Processing Complete')
 
     if (checkRes(URL, res)):
         
         if(sponsor):
-             
             ydl_opts = {
                 'format': format_selector,
                 'outtmpl': f"{path}\\%(title)s",
@@ -128,13 +155,17 @@ def downloadWithRes(URL, res, sponsor, path):
                         'key': 'ModifyChapters', 
                         'remove_sponsor_segments': ['sponsor', 'intro', 'outro', 'selfpromo', 'preview', 'filler', 'interaction']
                     }
-                ]
+                ],
+                'progress_hooks':[progressHook],
+                'postprocessor_hooks': [processingHook],
             }
         
         else:
              ydl_opts = {
                 'format': format_selector,
                 'outtmpl': f"{path}\\%(title)s",
+                'progress_hooks':[progressHook],
+                'postprocessor_hooks': [processingHook],
             }
 
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
