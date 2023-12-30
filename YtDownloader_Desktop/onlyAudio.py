@@ -1,19 +1,8 @@
 import yt_dlp
-
+from info import progressHook, processingHook
 def Audio(URL, path, downLabel, progressbar):
 
-    def progressHook(d):
-        if d['status'] == 'downloading':
-            downloaded_percent = int((d["downloaded_bytes"]*100)/d["total_bytes"])
-            downLabel.configure(text=f'Progress: {downloaded_percent}%')
-            progressbar.set(downloaded_percent/100)
-
-    def processingHook(d):
-        if d['status'] == 'started':
-            downLabel.configure(text='Processing Video...')
-        elif d['status'] == 'finished':
-            downLabel.configure(text='Processing Complete')
-
+    # yt_dlp options
     ydl_opts = {
         'format': 'm4a/bestaudio/best',
         'outtmpl': f"{path}\\%(title)s",
@@ -22,8 +11,9 @@ def Audio(URL, path, downLabel, progressbar):
         'preferredcodec': 'm4a',
         }],
         'ignoreerrors' : True,
-        'progress_hooks':[progressHook],
-        'postprocessor_hooks': [processingHook],
+        'progress_hooks':[lambda d: progressHook(d, downLabel, progressbar)],
+        'postprocessor_hooks': [lambda d: processingHook(d, downLabel)],
     }
+    # Start download with chosen options
     with yt_dlp.YoutubeDL(ydl_opts) as ydl:
         ydl.download(URL)

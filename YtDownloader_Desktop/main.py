@@ -13,8 +13,8 @@ root.title("YtDownloader")
 root.iconbitmap('.\YtDownloader.ico')
 
 def progressNotification(title:str, message:str):
-    progressbar.stop()
 
+    # Display notification
     notification.notify(
         title = title,
         message = message,
@@ -30,7 +30,7 @@ def thread():
 
 
 def configIni()->str:
-    # save configuration to file
+    # Save configuration
     path = filedialog.askdirectory()
     config = ConfigParser()
     config["DEFAULT"]= {
@@ -38,12 +38,13 @@ def configIni()->str:
         "UI": switchVar.get(),
         }
     
+    # Write to config.ini
     with open("config.ini", "w") as f:
         config.write(f)
     return path
 
-
 def setDir(path:str):
+    # Create the rest of the widgets after setting a download directory
     root.geometry("847x600")
     frame2 = ctk.CTkFrame(master = frame, fg_color="transparent")
     frame2.pack(pady =20, padx=(60,0), fill="both", expand = True)
@@ -58,31 +59,30 @@ def setDir(path:str):
     buttonChange = ctk.CTkButton(master = frame2, text = "Change Directory", command=lambda: changeDir(dir), fg_color="#ee2a42", hover_color = "#b90039", text_color=("black", "white"))
     buttonChange.pack(side="left", padx=(5,0))
     
-
-
 def saveDir():
-    # Check if configuration file exists
     if not exists(".\\config.ini"):
+        # Create config.ini, save path and start download
         path = configIni()
         setDir(path)
         download(path)
     else:
+        # Get path from config.ini and start download
         config = ConfigParser()
         config.read("config.ini")
         path = config["DEFAULT"]["PATH"]
         download(path)
         
 def changeDir(dir:ctk.StringVar):
+    # Change directory in config.ini and textbox 
     dir.set(value= configIni())
 
 def download(path:str):
-    
     # Get url, resolution and user option for SponsorBlock
     url = entry1.get()
     res = qualitySelect.get()
     sponsor = checkboxSponsor.get()
 
-    # Check if the user choose only audio option
+    # Check if the user chose only audio option
     if checkboxAudio.get() == 1:
 
         # Only Audio Download
@@ -95,14 +95,11 @@ def download(path:str):
     else:
         # Selected Quality Download
         if res != "Best Quality":
-
             if(youtubeDownloader.downloadWithRes(url, res, sponsor, path, downLabel, progressbar) == False):
-
                 # Send Notification
                 progressNotification('Download Failed', 'Resolution not available')
 
             else:
-
                 # Send Notification
                 progressNotification('Download Progress', 'Download Complete!!!')
                 
@@ -114,7 +111,7 @@ def download(path:str):
             progressNotification('Download Progress', 'Download Complete!!!')
 
 def changeColor(switchLabel:str, frameColor:str, mode:str, windowColor:str, progressColor:str):
-
+    # Change to light or dark mode
     UiSwitch.configure(text = switchLabel)
     frame.configure(fg_color = frameColor)
     ctk.set_appearance_mode(mode)
@@ -122,12 +119,14 @@ def changeColor(switchLabel:str, frameColor:str, mode:str, windowColor:str, prog
     progressbar.configure(fg_color = progressColor)
 
 def callChangeColor():
+    # Check what mode the UI is on and change accordingly
     if switchVar.get() == "off":
         changeColor("Light Mode", "#f1f3f4", "light", "#F9FAFA", "#D8DADB")
     else:
         changeColor("Dark Mode", "#2b2b2b", "dark", "#242424", "#4a4d50")
 
 def changeUi():
+    # Check if the UI is fully available
     if not exists(".\\config.ini"):
         callChangeColor()
     else:
@@ -135,7 +134,7 @@ def changeUi():
         editConfig()
 
 def editConfig():
-    # Edit configuration to file
+    # Change the mode choice in the configuration file
     config = ConfigParser()
     config.read(".\\config.ini")
     cnfFile = open(".\\config.ini", "w")
@@ -176,18 +175,23 @@ downLabel = ctk.CTkLabel(master = frame, text='')
 downLabel.pack()
 
 if exists(".\\config.ini"):
+    # Loading user preferences saved in the configuration file
     config = ConfigParser()
     config.read("config.ini")
     path = config["DEFAULT"]["PATH"]
+
     if config["DEFAULT"]["UI"] == "off":
         switchVar = ctk.StringVar(value="off")
         UiSwitch = ctk.CTkSwitch(master = frame, progress_color="#ee2a42", onvalue="on", offvalue="off", text="Dark Mode", variable=switchVar, command=changeUi)
         UiSwitch.pack(pady=20)
+
         changeColor("Light Mode", "#f1f3f4", "light", "#F9FAFA", "#D8DADB")
+
     else:
         switchVar = ctk.StringVar(value="on")
         UiSwitch = ctk.CTkSwitch(master = frame, progress_color="#ee2a42", onvalue="on", offvalue="off", text="Dark Mode", variable=switchVar, command=changeUi)
         UiSwitch.pack(pady=20)
+
         changeColor("Dark Mode", "#2b2b2b", "dark", "#242424", "#4a4d50")
 
     root.geometry("847x600")
@@ -197,6 +201,5 @@ else:
     UiSwitch = ctk.CTkSwitch(master = frame, progress_color="#ee2a42", onvalue="on", offvalue="off", text="Dark Mode", variable=switchVar, command=changeUi)
     UiSwitch.pack(pady=20)
 
-
-
+# Run the app
 root.mainloop()
