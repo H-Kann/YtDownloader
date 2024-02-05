@@ -52,6 +52,7 @@ def downloadBestRes(URL, sponsor, path, downLabel, progressbar):
             'outtmpl': f"{path}\\%(title)s",
             'progress_hooks':[lambda d: progressHook(d, downLabel, progressbar)],
             'postprocessor_hooks': [lambda d: processingHook(d, downLabel)],
+            'ignoreerrors':True,
         }
 
     # Start download with chosen options
@@ -138,6 +139,7 @@ def downloadWithRes(URL, res, sponsor, path, downLabel, progressbar):
                 'outtmpl': f"{path}\\%(title)s",
                 'progress_hooks':[lambda d: progressHook(d, downLabel, progressbar)],
                 'postprocessor_hooks': [lambda d: processingHook(d, downLabel)],
+                'ignoreerrors':True,
             }
 
         # Start download with chosen options

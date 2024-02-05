@@ -10,7 +10,7 @@ from configparser import ConfigParser
 ctk.set_appearance_mode("dark")
 root = ctk.CTk()
 root.title("YtDownloader")
-root.iconbitmap('.\YtDownloader.ico')
+root.iconbitmap('.\\YtDownloader.ico')
 
 def progressNotification(title:str, message:str):
 
@@ -19,7 +19,7 @@ def progressNotification(title:str, message:str):
         title = title,
         message = message,
         app_name='YTDownloader',
-        app_icon = '.\YtDownloader.ico',
+        app_icon = '.\\YtDownloader.ico',
     )
 
 
