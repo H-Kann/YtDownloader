@@ -44,6 +44,7 @@ def downloadBestRes(URL, sponsor, path, downLabel, progressbar):
                 ],
                 'progress_hooks':[lambda d: progressHook(d, downLabel, progressbar)],
                 'postprocessor_hooks': [lambda d: processingHook(d, downLabel)],
+                'extractor_args':{'youtube': {'skip': ['dash']}}
         }
     else:
         # yt_dlp options
@@ -53,6 +54,7 @@ def downloadBestRes(URL, sponsor, path, downLabel, progressbar):
             'progress_hooks':[lambda d: progressHook(d, downLabel, progressbar)],
             'postprocessor_hooks': [lambda d: processingHook(d, downLabel)],
             'ignoreerrors':True,
+            'extractor_args':{'youtube': {'skip': ['dash']}},
         }
 
     # Start download with chosen options
@@ -130,6 +132,7 @@ def downloadWithRes(URL, res, sponsor, path, downLabel, progressbar):
                 ],
                 'progress_hooks':[lambda d: progressHook(d, downLabel, progressbar)],
                 'postprocessor_hooks': [lambda d: processingHook(d, downLabel)],
+                'extractor_args':{'youtube': {'skip': ['dash']}}
             }
         
         else:
@@ -140,6 +143,7 @@ def downloadWithRes(URL, res, sponsor, path, downLabel, progressbar):
                 'progress_hooks':[lambda d: progressHook(d, downLabel, progressbar)],
                 'postprocessor_hooks': [lambda d: processingHook(d, downLabel)],
                 'ignoreerrors':True,
+                'extractor_args':{'youtube': {'skip': ['dash']}}
             }
 
         # Start download with chosen options

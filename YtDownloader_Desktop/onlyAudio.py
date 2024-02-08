@@ -13,6 +13,7 @@ def Audio(URL, path, downLabel, progressbar):
         'ignoreerrors' : True,
         'progress_hooks':[lambda d: progressHook(d, downLabel, progressbar)],
         'postprocessor_hooks': [lambda d: processingHook(d, downLabel)],
+        'extractor_args':{'youtube': {'skip': ['dash']}}
     }
     # Start download with chosen options
     with yt_dlp.YoutubeDL(ydl_opts) as ydl:
