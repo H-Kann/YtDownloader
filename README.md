@@ -1,5 +1,5 @@
 # Features
-- Download Youtube videos up to 4K resolution.
+- Download Youtube videos with the highest quality possible.
 - Download high quality extracted audio from the videos.
 - Sponsorblock integration
 - Light and Dark mode.
