@@ -9,9 +9,9 @@ def downloadBestRes(URL, sponsor, path, downLabel, progressbar):
 
             # Getting video without audio
             best_video = next(f for f in formats
-                            if f['vcodec'] != 'none' and f['acodec'] == 'none')
+                            if f['vcodec'] != 'none' and f['acodec'] == 'none' and f['ext']== 'mp4')
             # Finding compatible audio extension
-            audio_ext = {'mp4': 'm4a', 'webm': 'webm'}[best_video['ext']]
+            audio_ext = {'mp4': 'm4a'}[best_video['ext']]
 
             # Geting audio without video
             best_audio = next(f for f in formats if (
@@ -66,7 +66,7 @@ def downloadBestRes(URL, sponsor, path, downLabel, progressbar):
 def downloadWithRes(URL, res, sponsor, path, downLabel, progressbar):
     # Convert 4K to a usable resolution
     if res == '4K':
-        res = '2160p'
+        res = '2160'
 
     def checkRes(URL, res):
         # Get video information
@@ -93,10 +93,10 @@ def downloadWithRes(URL, res, sponsor, path, downLabel, progressbar):
             
             # Getting video without audio
             best_video = next(f for f in formats
-                            if f['vcodec'] != 'none' and f['acodec'] == 'none' and res in f['format'])
+                            if f['vcodec'] != 'none' and f['acodec'] == 'none' and res in f['format'] and f['ext']== 'mp4')
 
             # Finding compatible audio extension
-            audio_ext = {'mp4': 'm4a', 'webm': 'webm'}[best_video['ext']]
+            audio_ext = {'mp4': 'm4a'}[best_video['ext']]
 
             # Geting audio without video
             best_audio = next(f for f in formats if (

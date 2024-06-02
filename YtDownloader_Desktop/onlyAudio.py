@@ -8,7 +8,7 @@ def Audio(URL, path, downLabel, progressbar):
         'outtmpl': f"{path}\\%(title)s",
         'postprocessors': [{  # Extract audio using ffmpeg
         'key': 'FFmpegExtractAudio',
-        'preferredcodec': 'm4a',
+        'preferredcodec': 'mp3',
         }],
         'ignoreerrors' : True,
         'progress_hooks':[lambda d: progressHook(d, downLabel, progressbar)],
