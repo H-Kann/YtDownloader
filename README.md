@@ -1,5 +1,7 @@
 
-<p align="center"><img src="https://github.com/H-Kann/YtDownloader/assets/100532697/66675417-48f9-477f-8653-3722a5ba4892"/></p>
+<p align="center"><img src="https://github.com/H-Kann/YtDownloader/assets/100532697/a5996850-cceb-4d61-acbb-b0288d06d0a0"/></p>
+
+
 <br>
 
 # Features
