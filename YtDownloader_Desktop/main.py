@@ -48,7 +48,7 @@ def configIni()->str:
 
 def setDir(path:str):
     # Create the rest of the widgets after setting a download directory
-    root.geometry("847x600")
+    root.geometry("847x610")
     frame2 = ctk.CTkFrame(master = frame, fg_color="transparent")
     frame2.pack(pady =20, padx=(60,0), fill="both", expand = True)
 
@@ -178,7 +178,7 @@ def paste_text():
 frame = ctk.CTkFrame(master = root)
 frame.pack(pady =20, padx=60, fill="both", expand = True)
 
-logo = ctk.CTkImage(light_image=Image.open(r"E:\School\YtDownloader\YtDownloader_Desktop\Logo.png"), dark_image=Image.open(r"E:\School\YtDownloader\YtDownloader_Desktop\Logo 2.png"), size=(200,70))
+logo = ctk.CTkImage(light_image=Image.open(r"E:\School\YtDownloader\YtDownloader_Desktop\Logo.png"), dark_image=Image.open(r"E:\School\YtDownloader\YtDownloader_Desktop\Logo 2.png"), size=(300,90))
 label = ctk.CTkLabel(master = frame, image=logo, text="", font = ("Roboto", 24))
 
 #label = ctk.CTkLabel(master = frame, text = "Youtube Downloader", font = ("Roboto", 24))
