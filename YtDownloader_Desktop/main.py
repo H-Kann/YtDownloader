@@ -1,10 +1,13 @@
 import customtkinter as ctk
 import youtubeDownloader, onlyAudio
+from contextMenu import ContextMenu
 from threading import Thread
 from tkinter import filedialog
 from plyer import notification
 from os.path import exists
 from configparser import ConfigParser
+from PIL import Image
+
 
 
 ctk.set_appearance_mode("dark")
@@ -115,6 +118,9 @@ def changeColor(switchLabel:str, frameColor:str, mode:str, windowColor:str, prog
     UiSwitch.configure(text = switchLabel)
     frame.configure(fg_color = frameColor)
     ctk.set_appearance_mode(mode)
+    ctxMenuButton._text_color = frameColor
+    ctxMenuButton2._text_color = frameColor
+    ctxMenuButton3._text_color = frameColor
     root.configure(fg_color = windowColor)
     progressbar.configure(fg_color = progressColor)
 
@@ -142,16 +148,65 @@ def editConfig():
     config.write(cnfFile)
     cnfFile.close()
 
+
+
+def do_popup(event, frame):
+    """ open the popup menu """
+    try: frame.popup(event.x_root, event.y_root)
+    finally: frame.grab_release()
         
+def copy_text():
+        """ copy text operation """
+        frame.clipboard_clear()
+        
+        try: frame.clipboard_append(entry1.get())
+        except: pass
+    
+def cut_text():
+    """ cut text operation """
+    copy_text()
+    try: entry1.delete(ctk.SEL_FIRST, ctk.SEL_LAST)
+    except: pass
+
+def paste_text():
+    """ paste text operation """
+    try: entry1.insert(entry1.index('insert'), root.clipboard_get())
+    except: pass
+
+
 # CustomTkinter Widgets
 frame = ctk.CTkFrame(master = root)
 frame.pack(pady =20, padx=60, fill="both", expand = True)
 
-label = ctk.CTkLabel(master = frame, text = "Youtube Downloader", font = ("Roboto", 24))
+logo = ctk.CTkImage(light_image=Image.open(r"E:\School\YtDownloader\YtDownloader_Desktop\Logo.png"), dark_image=Image.open(r"E:\School\YtDownloader\YtDownloader_Desktop\Logo 2.png"), size=(200,70))
+label = ctk.CTkLabel(master = frame, image=logo, text="", font = ("Roboto", 24))
+
+#label = ctk.CTkLabel(master = frame, text = "Youtube Downloader", font = ("Roboto", 24))
 label.pack(pady = 12, padx = 10)
+
+
+
 
 entry1 = ctk.CTkEntry(master = frame, placeholder_text="Enter URL...", width=500)
 entry1.pack(pady = 12, padx = 10)
+
+
+
+float_window = ContextMenu(master = frame)
+entry1.bind("<Button-3>", lambda event :do_popup(event, float_window))
+
+ctxMenuButton = ctk.CTkButton(float_window.frameMenu, text="Copy", fg_color="transparent", hover_color="#ee2a42", command = copy_text)
+ctxMenuButton.pack(expand=True, fill="x", padx=10, pady=(10,0))
+
+ctxMenuButton2 = ctk.CTkButton(float_window.frameMenu, text="Paste", fg_color="transparent", hover_color="#ee2a42", command = paste_text)
+ctxMenuButton2.pack(expand=True, fill="x", padx=10, pady=(5,0))
+
+ctxMenuButton3 = ctk.CTkButton(float_window.frameMenu, text="Cut", fg_color="transparent", hover_color="#ee2a42", command = cut_text)
+ctxMenuButton3.pack(expand=True, fill="x", padx=10, pady=(5,10))
+
+
+
+
 
 qualities= ["Best Quality", "4K", "1440p", "1080p", "720p", "480p", "360p", "144p"]
 qualitySelect = ctk.CTkComboBox(master = frame, values=qualities, border_color = "#ee2a42", button_color = "#ee2a42")
