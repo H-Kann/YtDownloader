@@ -1,8 +1,6 @@
 
-<p align="center"><img src="https://github.com/H-Kann/YtDownloader/assets/100532697/a5996850-cceb-4d61-acbb-b0288d06d0a0"/></p>
+<p align="center"><img src="https://github.com/H-Kann/YtDownloader/assets/100532697/7f0a95f6-9e90-4613-9a2c-94cdbf8a5bf6"/></p>
 
-
-<br>
 
 # Features
 - Download Youtube videos with the highest quality possible.
