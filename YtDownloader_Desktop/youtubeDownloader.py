@@ -4,7 +4,7 @@ from info import processingHook, progressHook
 def downloadBestRes(URL, sponsor, path, downLabel, progressbar):
     
     def format_selector(ctx):
-            # Sorting format best to worst
+            # Sorting format from worst to best
             formats = ctx.get('formats')[::-1]
 
             # Getting video without audio

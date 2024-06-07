@@ -178,10 +178,8 @@ def paste_text():
 frame = ctk.CTkFrame(master = root)
 frame.pack(pady =20, padx=60, fill="both", expand = True)
 
-logo = ctk.CTkImage(light_image=Image.open(r"E:\School\YtDownloader\YtDownloader_Desktop\Logo.png"), dark_image=Image.open(r"E:\School\YtDownloader\YtDownloader_Desktop\Logo 2.png"), size=(300,90))
+logo = ctk.CTkImage(light_image=Image.open(r"E:\School\YtDownloader\YtDownloader_Desktop\Logo 2.png"), dark_image=Image.open(r"E:\School\YtDownloader\YtDownloader_Desktop\Logo 2.png"), size=(300,90))
 label = ctk.CTkLabel(master = frame, image=logo, text="", font = ("Roboto", 24))
-
-#label = ctk.CTkLabel(master = frame, text = "Youtube Downloader", font = ("Roboto", 24))
 label.pack(pady = 12, padx = 10)
 
 
@@ -209,7 +207,7 @@ ctxMenuButton3.pack(expand=True, fill="x", padx=10, pady=(5,10))
 
 
 qualities= ["Best Quality", "4K", "1440p", "1080p", "720p", "480p", "360p", "144p"]
-qualitySelect = ctk.CTkComboBox(master = frame, values=qualities, border_color = "#ee2a42", button_color = "#ee2a42")
+qualitySelect = ctk.CTkOptionMenu(master = frame, values=qualities, button_color = "#ee2a42", button_hover_color = "#b90039", fg_color = ("#D8DADB", "#4a4d50"), text_color=("#2b2b2b","#f1f3f4"), dropdown_hover_color = "#ee2a42", corner_radius = 7, dropdown_text_color=("#2b2b2b","#f1f3f4"))
 qualitySelect.pack(pady = 12, padx = 10)
 
 
