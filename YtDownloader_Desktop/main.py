@@ -178,7 +178,7 @@ def paste_text():
 frame = ctk.CTkFrame(master = root)
 frame.pack(pady =20, padx=60, fill="both", expand = True)
 
-logo = ctk.CTkImage(light_image=Image.open(r"E:\School\YtDownloader\YtDownloader_Desktop\Logo 2.png"), dark_image=Image.open(r"E:\School\YtDownloader\YtDownloader_Desktop\Logo 2.png"), size=(300,90))
+logo = ctk.CTkImage(light_image=Image.open(r"E:\School\YtDownloader\YtDownloader_Desktop\Logo.png"), dark_image=Image.open(r"E:\School\YtDownloader\YtDownloader_Desktop\Logo.png"), size=(300,90))
 label = ctk.CTkLabel(master = frame, image=logo, text="", font = ("Roboto", 24))
 label.pack(pady = 12, padx = 10)
 
