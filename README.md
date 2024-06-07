@@ -1,25 +1,30 @@
 
 <p align="center"><img src="https://github.com/H-Kann/YtDownloader/assets/100532697/7f0a95f6-9e90-4613-9a2c-94cdbf8a5bf6"/></p>
 
+>[!IMPORTANT]
+> There are two versions of this app, the web app and desktop versions.
+> 
+> The desktop version is in the releases section on the right, just download the latest version, install ffmpeg and the app.
+>
+> For advanced users: The dependencies that are needed located below.
+</span>
+<br>
 
 # Features
 - Download Youtube videos with the highest quality possible.
 - Download high quality extracted audio from the videos.
-- Sponsorblock integration
+- Download songs from Youtube Music.
+- Sponsorblock integration.
 - Light and Dark mode.
 <br>
 
 # Screenshots
-![Dark Mode](YtDownloader_Desktop/Dark.png) ![Light Mode](YtDownloader_Desktop/Light.png)
-<br>
-<br>
-> [!IMPORTANT]
-> There are two versions of this app, if you want the web app version, download the repo and delete the 'YtDownloader_Desktop' folder
-> 
-> Or if you want only the desktop version, downloading only that folder should suffice.
->
-> Don't forget to check the section for each version</span>
-<br>
+![Dark](https://github.com/H-Kann/YtDownloader/assets/100532697/c8406894-b75d-454d-aca8-315f16f9c930)
+![Light](https://github.com/H-Kann/YtDownloader/assets/100532697/18fb6480-4fb4-495a-a069-75c766748718)
+
+
+
+
 
 # YtDownloader required package
 
