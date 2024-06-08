@@ -67,6 +67,9 @@ def downloadWithRes(URL, res, sponsor, path, downLabel, progressbar):
     # Convert 4K to a usable resolution
     if res == '4K':
         res = '2160'
+    else:
+        res = ''.join(filter(str.isdigit, res))
+
 
     def checkRes(URL, res):
         # Get video information
@@ -91,12 +94,20 @@ def downloadWithRes(URL, res, sponsor, path, downLabel, progressbar):
             # Sorting format best to worst
             formats = ctx.get('formats')[::-1]
             
-            # Getting video without audio
-            best_video = next(f for f in formats
-                            if f['vcodec'] != 'none' and f['acodec'] == 'none' and res in f['format'] and f['ext']== 'mp4')
+            try:
+                # Getting video without audio
+                best_video = None
+                best_video = next(f for f in formats
+                                if f['vcodec'] != 'none' and f['acodec'] == 'none' and res in f['format'] and f['ext']== 'mp4')
+            except:
 
+                # If resolution + extension combo not found, use next best extension (webm) 
+                if best_video == None:
+                    best_video = next(f for f in formats if f['vcodec'] != 'none' and f['acodec'] == 'none' and res in f['format'])
+                    
+            
             # Finding compatible audio extension
-            audio_ext = {'mp4': 'm4a'}[best_video['ext']]
+            audio_ext = {'mp4': 'm4a', 'webm': 'webm'}[best_video['ext']]
 
             # Geting audio without video
             best_audio = next(f for f in formats if (

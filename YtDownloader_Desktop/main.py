@@ -104,7 +104,7 @@ def download(path:str):
 
             else:
                 # Send Notification
-                progressNotification('Download Progress', 'Download Complete!!!')
+                progressNotification('Download Progress', 'Mp4 extension not found, Webm used instead')
                 
         else:
             # Best Quality Download
@@ -173,12 +173,12 @@ def paste_text():
     try: entry1.insert(entry1.index('insert'), root.clipboard_get())
     except: pass
 
-
+#----------------------------------Change logo path---------------------
 # CustomTkinter Widgets
 frame = ctk.CTkFrame(master = root)
 frame.pack(pady =20, padx=60, fill="both", expand = True)
 
-logo = ctk.CTkImage(light_image=Image.open(r"E:\School\YtDownloader\YtDownloader_Desktop\Logo.png"), dark_image=Image.open(r"E:\School\YtDownloader\YtDownloader_Desktop\Logo.png"), size=(300,90))
+logo = ctk.CTkImage(light_image=Image.open(".\\Logo.png"), dark_image=Image.open(".\\Logo.png"), size=(300,90))
 label = ctk.CTkLabel(master = frame, image=logo, text="", font = ("Roboto", 24))
 label.pack(pady = 12, padx = 10)
 
