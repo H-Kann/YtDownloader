@@ -105,7 +105,6 @@ def downloadWithRes(URL, res, sponsor, path, downLabel, progressbar):
                 if best_video == None:
                     best_video = next(f for f in formats if f['vcodec'] != 'none' and f['acodec'] == 'none' and res in f['format'])
                     
-            
             # Finding compatible audio extension
             audio_ext = {'mp4': 'm4a', 'webm': 'webm'}[best_video['ext']]
 
