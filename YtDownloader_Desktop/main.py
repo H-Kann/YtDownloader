@@ -14,6 +14,12 @@ ctk.set_appearance_mode("dark")
 root = ctk.CTk(fg_color=("#F9FAFA", "#242424"))
 root.title("YtDownloader")
 root.iconbitmap('.\\YtDownloader.ico')
+# Color palette
+hoverColor1 = "#b90039"
+hoverColor2 = "#ee2a42"
+fgColor1 = ("#D8DADB", "#4a4d50")
+fgColor2 = ("#f1f3f4", "#2b2b2b")
+txtColor1 = ("black","white")
 
 def progressNotification(title:str, message:str):
 
@@ -56,10 +62,10 @@ def setDir(path:str):
     downloadDirectory.pack(side="left", padx=(10,10))
 
     dir = ctk.StringVar(value=path)
-    downDir= ctk.CTkEntry(master = frame2, textvariable=dir, width=300, state="readonly")
+    downDir= ctk.CTkEntry(master = frame2, textvariable=dir, width=300, state="readonly", fg_color = fgColor2)
     downDir.pack(side="left")
 
-    buttonChange = ctk.CTkButton(master = frame2, text = "Change Directory", command=lambda: changeDir(dir), fg_color="#ee2a42", hover_color = "#b90039", text_color=("black", "white"))
+    buttonChange = ctk.CTkButton(master = frame2, text = "Change Directory", command=lambda: changeDir(dir), fg_color=hoverColor2, hover_color = hoverColor1, text_color=txtColor1)
     buttonChange.pack(side="left", padx=(5,0))
     
 def saveDir():
@@ -144,34 +150,43 @@ def editConfig():
 
 
 def do_popup(event, frame):
-    """ open the popup menu """
+    # Open the popup menu 
     try: frame.popup(event.x_root, event.y_root)
     finally: frame.grab_release()
         
 def copy_text():
-        """ copy text operation """
+        # Copy text operation
         frame.clipboard_clear()
         
         try: frame.clipboard_append(entry1.get())
         except: pass
     
 def cut_text():
-    """ cut text operation """
+    # Cut text operation
     copy_text()
     try: entry1.delete(ctk.SEL_FIRST, ctk.SEL_LAST)
     except: pass
 
-def paste_text():
-    """ paste text operation """
-    try: entry1.insert(entry1.index('insert'), root.clipboard_get())
+def paste():
+    try:
+        entry1.insert(entry1.index('insert'), root.clipboard_get())
     except: pass
+
+def paste_text():
+    # paste text operation
+    if entry1.select_present():
+        entry1.delete(0, 'end')
+        paste()
+    else:
+        paste()
+
 
 def changeSwitchText(switchVar):
     UiSwitch.configure(variable=switchVar)
     UiSwitch.pack(pady=20)
 
 # CustomTkinter Widgets
-frame = ctk.CTkFrame(master = root, fg_color=("#f1f3f4", "#2b2b2b"))
+frame = ctk.CTkFrame(master = root, fg_color=fgColor2)
 frame.pack(pady =20, padx=60, fill="both", expand = True)
 
 logo = ctk.CTkImage(light_image=Image.open(".\\Logo.png"), dark_image=Image.open(".\\Logo.png"), size=(300,90))
@@ -179,39 +194,39 @@ label = ctk.CTkLabel(master = frame, image=logo, text="", font = ("Roboto", 24))
 label.pack(pady = 12, padx = 10)
 
 
-entry1 = ctk.CTkEntry(master = frame, placeholder_text="Enter URL...", width=500, fg_color = ("#f1f3f4", "#2b2b2b"))
+entry1 = ctk.CTkEntry(master = frame, placeholder_text="Enter URL...", width=500, fg_color = fgColor2)
 entry1.pack(pady = 12, padx = 10)
 
 
 float_window = ContextMenu(master = frame)
 entry1.bind("<Button-3>", lambda event :do_popup(event, float_window))
 
-ctxMenuButton = ctk.CTkButton(float_window.frameMenu, text="Copy", text_color=("#2b2b2b","#f1f3f4"), fg_color="transparent", hover_color="#ee2a42", command = copy_text)
+ctxMenuButton = ctk.CTkButton(float_window.frameMenu, text="Copy", text_color=txtColor1, fg_color="transparent", hover_color=hoverColor2, command = copy_text)
 ctxMenuButton.pack(expand=True, fill="x", padx=10, pady=(10,0))
 
-ctxMenuButton2 = ctk.CTkButton(float_window.frameMenu, text="Paste", text_color=("#2b2b2b","#f1f3f4"), fg_color="transparent", hover_color="#ee2a42", command = paste_text)
+ctxMenuButton2 = ctk.CTkButton(float_window.frameMenu, text="Paste", text_color=txtColor1, fg_color="transparent", hover_color=hoverColor2, command = paste_text)
 ctxMenuButton2.pack(expand=True, fill="x", padx=10, pady=(5,0))
 
-ctxMenuButton3 = ctk.CTkButton(float_window.frameMenu, text="Cut", text_color=("#2b2b2b","#f1f3f4"), fg_color="transparent", hover_color="#ee2a42", command = cut_text)
+ctxMenuButton3 = ctk.CTkButton(float_window.frameMenu, text="Cut", text_color=txtColor1, fg_color="transparent", hover_color=hoverColor2, command = cut_text)
 ctxMenuButton3.pack(expand=True, fill="x", padx=10, pady=(5,10))
 
 
 
 qualities= ["Best Quality", "4K", "1440p", "1080p", "720p", "480p", "360p", "144p"]
-qualitySelect = ctk.CTkOptionMenu(master = frame, values=qualities, button_color = "#ee2a42", button_hover_color = "#b90039", fg_color = ("#D8DADB", "#4a4d50"), text_color=("#2b2b2b","#f1f3f4"), dropdown_hover_color = "#ee2a42", corner_radius = 7, dropdown_text_color=("#2b2b2b","#f1f3f4"))
+qualitySelect = ctk.CTkOptionMenu(master = frame, values=qualities, button_color = hoverColor2, button_hover_color = hoverColor1, fg_color = fgColor1, text_color=txtColor1, dropdown_hover_color = hoverColor2, corner_radius = 7, dropdown_text_color=txtColor1)
 qualitySelect.pack(pady = 12, padx = 10)
 
 
-buttonDownload = ctk.CTkButton(master = frame, text = "Download", command=thread, fg_color="#ee2a42", hover_color = "#b90039", text_color=("black", "white"))
+buttonDownload = ctk.CTkButton(master = frame, text = "Download", command=thread, fg_color=hoverColor2, hover_color = hoverColor1, text_color=txtColor1)
 buttonDownload.pack(pady = 12, padx = 10)
 
-checkboxAudio = ctk.CTkCheckBox(master = frame, text = "Audio only", fg_color="#ee2a42", hover_color = "#b90039")
+checkboxAudio = ctk.CTkCheckBox(master = frame, text = "Audio only", fg_color=hoverColor2, hover_color = hoverColor1)
 checkboxAudio.pack(pady=20)
 
-checkboxSponsor = ctk.CTkCheckBox(master = frame, text = "Use SponsorBlock", fg_color="#ee2a42", hover_color = "#b90039")
+checkboxSponsor = ctk.CTkCheckBox(master = frame, text = "Use SponsorBlock", fg_color=hoverColor2, hover_color = hoverColor1)
 checkboxSponsor.pack(padx=(35,0))
 
-progressbar = ctk.CTkProgressBar(master=frame, orientation="horizontal", progress_color="#ee2a42", fg_color=("#D8DADB", "#4a4d50"))
+progressbar = ctk.CTkProgressBar(master=frame, orientation="horizontal", progress_color=hoverColor2, fg_color=fgColor1)
 progressbar.set(0)
 progressbar.pack(pady=20)
 
@@ -224,7 +239,7 @@ if exists(".\\config.ini"):
     config.read("config.ini")
     path = config["DEFAULT"]["PATH"]
 
-    UiSwitch = ctk.CTkSwitch(master = frame, progress_color="#ee2a42", onvalue="on", offvalue="off", fg_color=("#D8DADB", "#4a4d50"), command=changeUi)
+    UiSwitch = ctk.CTkSwitch(master = frame, progress_color=hoverColor2, onvalue="on", offvalue="off", fg_color=fgColor1, command=changeUi)
     
     if config["DEFAULT"]["UI"] == "off":
         switchVar = ctk.StringVar(value = "off")
@@ -240,7 +255,7 @@ if exists(".\\config.ini"):
     setDir(path)
 else:
     switchVar = ctk.StringVar(value="on")
-    UiSwitch = ctk.CTkSwitch(master = frame, progress_color="#ee2a42", onvalue="on", offvalue="off", text="Dark Mode", variable=switchVar, command=changeUi)
+    UiSwitch = ctk.CTkSwitch(master = frame, progress_color=hoverColor2, onvalue="on", offvalue="off", text="Dark Mode", variable=switchVar, command=changeUi)
     UiSwitch.pack(pady=20)
 
 # Run the app
