@@ -15,12 +15,11 @@
     <div class="container d-flex flex-column text-light text-center">
         <div class="flex-grow-1"></div>
         <div class="jumbotron bg-transparent flex-grow-1">
-        <h2 class="display-4">YouTube Video Downloader</h2>
-        <div><img class = "img" src = "../static/images/Youtube_Logo.png"></div>
+        <div><img class = "img" src = "../static/images/YtDlownloader_Logo_Web.png"></div>
         <hr class="my-4">
         <div>
             <h2 class="display-4">Enter URL</h2>
-            <form action="/downloadVideo" method="post">
+        <form action="/downloadVideo" method="post">
 
             {% if message is defined and message %}
                 {% if errorType is defined and errorType %}
@@ -35,27 +34,35 @@
                 <select class="input-group-text" placeholder="Choose Quality" name = "format" style = "background-color: #ffffff;">
                     <optgroup label = "Quality">
                         <option value = "Best">Best Quality</option>
-                        <option value = "2160p">4K</option>
-                        <option value = "1440p">1440p</option>
-                        <option value = "1080p">1080p</option>
-                        <option value = "720p">720p</option>
-                        <option value = "480p">480p</option>
-                        <option value = "360p">360p</option>
-                        <option value = "144p">144p</option>
+                        <option value = "2160">4K</option>
+                        <option value = "1440">1440p</option>
+                        <option value = "1080">1080p</option>
+                        <option value = "720">720p</option>
+                        <option value = "480">480p</option>
+                        <option value = "360">360p</option>
+                        <option value = "144">144p</option>
                     </optgroup>
                 </select>
                     <div class="input-group-append">
-                        <button type="submit" class="btn btn-danger" style="color:#ffffff; background-color: #ea3c1d;">Download</button>
+                        <button type="submit" class="btn-lg" onclick='document.getElementById("downLabel").innerHTML= "Downloading..."; document.getElementById("file").setAttribute("value", "")'>Download</button>
                     </div>
             </div>
             <br>
             <input class="form-check-input" type="checkbox"  value=True id="flexCheckChecked" name = "sponsor">  
             <label class="form-check-label" for="flexCheckChecked">
                 Use SponsorBlock
-              </label>
-               </form>    
+            </label>
+              <br><br>
+            <label id = "downLabel" for="file"></label>
+            <br>
+            <progress id="file"></progress>
+            <script>
+                document.getElementById('file').setAttribute("value", "0");
+            </script>
+        </form>    
         </div>
     </div> 
     <br><br>
+    
 </body>
 </html>
