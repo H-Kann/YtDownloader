@@ -17,8 +17,8 @@ body {
     max-height: 30%
   }
 
-.btn-lg{
+  .btn-lg{
   color:#ffffff; 
-  background-image: linear-gradient(-113deg, red, purple);
+  background-color: red;
   border: 0;
-}
+  }

@@ -6,8 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="Description" content="Web frontend for youtube-dl">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href= "{{ url_for('static',filename='styles/style.css') }}">
+    
 </head>
 
 
@@ -44,7 +45,7 @@
                     </optgroup>
                 </select>
                     <div class="input-group-append">
-                        <button type="submit" class="btn-lg" onclick='document.getElementById("downLabel").innerHTML= "Downloading..."; document.getElementById("file").setAttribute("value", "")'>Download</button>
+                        <button type="submit" class="btn-lg" onclick=move()>Download</button>
                     </div>
             </div>
             <br>
@@ -55,14 +56,40 @@
               <br><br>
             <label id = "downLabel" for="file"></label>
             <br>
-            <progress id="file"></progress>
-            <script>
-                document.getElementById('file').setAttribute("value", "0");
-            </script>
+            <div id = "prog" class="w3-container">
+                <div class="w3-dim-grey w3-round-large">
+                  <div id = "Progfile" class="w3-container w3-red w3-round-large" style="height:24px; width:0%;"></div>
+                </div>
+                
+            </div>
         </form>    
-        </div>
-    </div> 
+    </div>
+</div> 
     <br><br>
-    
+    <script>
+        var progressbar = document.getElementById("Progfile");
+        document.getElementById("prog").style.display= "none";
+
+        function move() {
+            document.getElementById("downLabel").innerHTML= "Downloading...";
+            
+            document.getElementById("prog").style.display="block"
+            var elem = progressbar;
+            var width = 1;
+            
+            var id = setInterval(frame, 3000);
+            function frame() {
+            for (let i=0; i<10; i++){
+                if (width>=100){
+                    width = 0
+                }
+                else{
+                    width++;
+                    elem.style.width = width + '%';
+                }
+            }
+        }
+    }
+    </script>
 </body>
 </html>

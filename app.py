@@ -19,8 +19,8 @@ def downloadAudio():
             if(youtubeUrl):
                 validateVideoUrl = (
                 r'(https?://)?(www\.)?'
-                '(youtube|youtu|youtube-nocookie)\.(com|be)/'
-                '(watch\?v=|embed/|v/|.+\?v=)?([^&=%\?]{11})')
+                '(youtube|youtu|youtube-nocookie)\\.(com|be)/'
+                '(watch\\?v=|embed/|v/|.+\\?v=)?([^&=%\\?]{11})')
                 
                 validVideoUrl = re.match(validateVideoUrl, youtubeUrl)
                 if validVideoUrl:
@@ -46,8 +46,8 @@ def downloadVideo():
         if(youtubeUrl):
             validateVideoUrl = (
             r'(https?://)?(www\.)?'
-            '(youtube|youtu|youtube-nocookie)\.(com|be)/'
-            '(watch\?v=|embed/|v/|.+\?v=)?([^&=%\?]{11})')
+            '(youtube|youtu|youtube-nocookie)\\.(com|be)/'
+            '(watch\\?v=|embed/|v/|.+\\?v=)?([^&=%\\?]{11})')
             
             validVideoUrl = re.match(validateVideoUrl, youtubeUrl)
             
@@ -56,7 +56,6 @@ def downloadVideo():
                 URL = youtubeUrl
                 res = request.form.get('format')
                 sponsor = request.form.get('sponsor')
-
                 if (res != 'Best'):
 
                     if(downloadWithRes(URL, res, sponsor) == True):
