@@ -30,8 +30,7 @@ def progressNotification(title:str, message:str):
         app_name='YTDownloader',
         app_icon = '.\\YtDownloader.ico',
     )
-
-
+    
 def thread():
     # Start thread to keep the progress bar running while downloading
     t1 = Thread(target = saveDir)
@@ -95,10 +94,11 @@ def download(path:str):
     if checkboxAudio.get() == 1:
 
         # Only Audio Download
-        onlyAudio.Audio(url, path, downLabel, progressbar)
-
-        # Send Notification
-        progressNotification('Download Progress', 'Download Complete!!!')
+        if(onlyAudio.Audio(url, path, downLabel, progressbar)):
+            # Send Notification
+            progressNotification('Download Progress', 'Download Complete!!!')
+        else:
+            progressNotification('Error', 'Download Failed')
     
         
     else:
@@ -114,10 +114,11 @@ def download(path:str):
                 
         else:
             # Best Quality Download
-            youtubeDownloader.downloadBestRes(url, sponsor, path, downLabel, progressbar)
-
-            # Send Notification 
-            progressNotification('Download Progress', 'Download Complete!!!')
+            if(youtubeDownloader.downloadBestRes(url, sponsor, path, downLabel, progressbar)):
+                 # Send Notification 
+                progressNotification('Download Progress', 'Download Complete!!!')
+            else:
+                progressNotification('Error', 'Download Failed')
 
 def changeColor(mode:str):
     # Change to light or dark mode

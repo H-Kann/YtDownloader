@@ -1,5 +1,5 @@
 import yt_dlp
-from info import progressHook, processingHook
+from info import progressHook, processingHook, checkErrorCode
 def Audio(URL, path, downLabel, progressbar):
 
     # yt_dlp options
@@ -17,4 +17,8 @@ def Audio(URL, path, downLabel, progressbar):
     }
     # Start download with chosen options
     with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-        ydl.download(URL)
+        errorcode = ydl.download(URL)
+        if (checkErrorCode(errorcode)):
+            return True
+        else:
+            return False

@@ -1,5 +1,6 @@
 import yt_dlp
-from info import processingHook, progressHook
+from info import processingHook, progressHook, checkErrorCode
+
 
 def downloadBestRes(URL, sponsor, path, downLabel, progressbar):
     
@@ -59,8 +60,11 @@ def downloadBestRes(URL, sponsor, path, downLabel, progressbar):
 
     # Start download with chosen options
     with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-        ydl.download(URL)
-        return True
+        errorcode = ydl.download(URL)
+        if (checkErrorCode(errorcode)):
+            return True
+        else:
+            return False
 
 
 def downloadWithRes(URL, res, sponsor, path, downLabel, progressbar):
@@ -159,13 +163,8 @@ def downloadWithRes(URL, res, sponsor, path, downLabel, progressbar):
 
         # Start download with chosen options
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-            ydl.download(URL)
+            errorcode = ydl.download(URL)
+        if (checkErrorCode(errorcode)):
             return True
-    else:
-        return False
-    
-
-    
-
-
-    
+        else:
+            return False

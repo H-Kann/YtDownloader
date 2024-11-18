@@ -18,4 +18,9 @@ def processingHook(d, downLabel):
         downLabel.configure(text='Processing Video...')
     elif d['status'] == 'finished':
         downLabel.configure(text='Processing Complete')
-        
+    
+def checkErrorCode(errorCode:int) -> bool:
+    if errorCode == 0:
+        return True
+    else:
+        return False
