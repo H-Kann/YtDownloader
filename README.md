@@ -64,13 +64,13 @@ pip install flask
 ```
 ## yt_dlp
 ```bash
-pip install yt_dlp
+pip install -U "yt-dlp[default]"
 ```
 ## YtDownloader desktop dependencies
 
 ## yt_dlp
 ```bash
-pip install yt_dlp
+pip install -U "yt-dlp[default]"
 ```
 ## CustomTkinter
 ```bash
